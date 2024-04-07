@@ -1,0 +1,25 @@
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+      uuid-representation: standard
+      uri: mongodb://mongodb/docker-db
+
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /api-docs.json
+  swagger-ui:
+    path: /swagger
+    operations-sorter: alpha
+    tags-sorter: alpha
+
+logging:
+  level:
+    org.springframework.*: warn
+    org.hibernate.*: warn
+    com.zaxxer.*: warn
+    org.mongodb.*: warn
+
