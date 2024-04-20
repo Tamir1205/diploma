@@ -112,6 +112,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>flatsharing</finalName>
     </build>
 
 </project>

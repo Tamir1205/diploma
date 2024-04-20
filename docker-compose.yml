@@ -1,12 +1,14 @@
 version: "3.8"
 services:
-  sb-app:
-    build: .
-    container_name: "docker-app"
-    ports:
-      - 5000:5000
   mongodb:
     image: mongo:latest
-    container_name: "mongodb"
+    container_name: "mongodb-test"
     ports:
-      - 27070:27017
+      - 27019:27019
+  flatsharing:
+    image: flatsharing
+    container_name: flatsharing
+    ports:
+      - 8080:8080
+    links:
+      - mongodb
