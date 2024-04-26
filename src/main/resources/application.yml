@@ -1,8 +1,8 @@
 spring:
   data:
     mongodb:
-      database: ${MONGODB_DATABASE_NAME}
-      uri: ${MONGODB_URI}
+      database: mongodb+srv://tamirlansemsk:flatsharing@diploma-cluster.anrsmn9.mongodb.net
+      uri: flatsharing
 
 server:
   port: 8080
