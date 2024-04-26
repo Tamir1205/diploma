@@ -1,9 +1,9 @@
 spring:
   data:
     mongodb:
-      database: test
-      host: mongodb-test
-      port: 27019
+      database: flatsharing
+      uri: mongodb+srv://tamirlansemsk:flatsharing@diploma-cluster.anrsmn9.mongodb.net
+
 server:
   port: 8080
 

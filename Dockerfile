@@ -1,3 +1,8 @@
-FROM openjdk:17
-ADD target/flatsharing.jar flatsharing.jar
+FROM maven:3.8.5-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/flatsharing.jar flatsharing.jar
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","flatsharing.jar"]

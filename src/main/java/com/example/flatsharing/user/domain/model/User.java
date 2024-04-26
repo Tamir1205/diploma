@@ -27,10 +27,10 @@ public class User implements UserDetails {
     @Indexed(unique = true)
     private String email;
     private String password;
-    private Sex sex;
+    private String sex;
     private String city;
-    private List<Interest> interests;
-    private String firstname;
+    private List<String> interests;
+    private String fullName;
     private String lastname;
     private Role role;
     private List<String> publicationIds;
