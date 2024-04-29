@@ -1,13 +1,9 @@
 package com.example.flatsharing.user.controller;
 
-import com.example.flatsharing.user.domain.dto.AuthenticateRequestDTO;
-import com.example.flatsharing.user.domain.dto.CreateUserDTO;
-import com.example.flatsharing.user.domain.dto.UpdateUserDTO;
-import com.example.flatsharing.user.domain.dto.UserDTO;
+import com.example.flatsharing.user.domain.dto.*;
 import com.example.flatsharing.user.domain.mapper.UserMapper;
 import com.example.flatsharing.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,39 +18,31 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody CreateUserDTO dto) {
-        try {
-            return ResponseEntity.ok(userService.create(dto));
-        } catch (Exception e) {
-            ErrorDetails errorDetails = new ErrorDetails("Error occurred while creating user");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
-        }
+        return ResponseEntity.ok(userService.create(dto));
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> createUser(@RequestBody AuthenticateRequestDTO dto) {
-        try {
-            return ResponseEntity.ok(userService.authenticate(dto));
-        } catch (Exception e) {
-            ErrorDetails errorDetails = new ErrorDetails("Error occurred while login user");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
-        }
+        return ResponseEntity.ok(userService.authenticate(dto));
     }
 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<? extends Object> updateUser(@RequestBody UpdateUserDTO dto, @PathVariable String id) {
-        try {
-            return ResponseEntity.ok(userService.update(dto, id));
-        } catch (Exception e) {
-            ErrorDetails errorDetails = new ErrorDetails("Error occurred while updating user");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
-        }
+    @PutMapping("/update/users/{id}")
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UpdateUserDTO dto, @PathVariable String id) {
+        return ResponseEntity.ok(userMapper.toDTO(userService.update(dto, id)));
     }
 
-    public class ErrorDetails {
-        private String message;
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
+        return ResponseEntity.ok(userMapper.toDTO(userService.getById(id)));
+    }
 
-        public ErrorDetails(String message) {
-            this.message = message;
-        }
+    @GetMapping("/users/email/{email}")
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userMapper.toDTO(userService.getByEmail(email)));
+    }
+
+    @PostMapping("/users/{id}/password")
+    public ResponseEntity<Boolean> changeUserPassword(@PathVariable String id, @RequestBody ChangePasswordDTO dto) {
+        return ResponseEntity.ok(userService.changePassword(id, dto));
     }
 }

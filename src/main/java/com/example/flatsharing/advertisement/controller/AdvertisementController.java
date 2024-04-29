@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,8 +29,18 @@ public class AdvertisementController {
     private final AdvertisementMapper mapper;
 
     @PostMapping
-    public AdvertisementDTO create(@Valid @RequestBody CreateAdvertisementDTO dto) {
-        return mapper.toDTO(advertisementService.create(dto));
+    public AdvertisementDTO create(@Valid @RequestBody CreateAdvertisementDTO dto, @RequestHeader String userId) {
+        return mapper.toDTO(advertisementService.create(dto, userId));
+    }
+
+    @PostMapping("/{id}/like")
+    public Boolean like(@PathVariable String id, @RequestHeader String userId) {
+        return advertisementService.like(id, userId);
+    }
+
+    @GetMapping("/favourite")
+    public List<AdvertisementDTO> getFavourite(@RequestHeader String userId) {
+        return mapper.toDTO(advertisementService.getFavourite(userId));
     }
 
     @PutMapping("/{id}")
@@ -45,10 +56,15 @@ public class AdvertisementController {
     @GetMapping
     @PageableAsQueryParam
     public PaginatedAdvertisementDTO paginate(@Parameter(hidden = true) Pageable pageable,
-                                              @RequestParam(required = false) Integer numberOfRooms,
+                                              @RequestParam(required = false) List<Integer> numberOfRooms,
+                                              @RequestParam(required = false) List<String> interests,
+                                              @RequestParam(required = false) String gender,
+                                              @RequestParam(required = false) Integer ageGreaterThan,
+                                              @RequestParam(required = false) Integer ageLessThan,
                                               @RequestParam(required = false) BigDecimal priceGreaterThan,
                                               @RequestParam(required = false) BigDecimal priceLessThan) {
-        Page<Advertisement> page = advertisementService.paginate(pageable, numberOfRooms, priceLessThan, priceGreaterThan);
+        Page<Advertisement> page = advertisementService.paginate(pageable, numberOfRooms, priceLessThan, priceGreaterThan,
+                interests, gender, ageGreaterThan, ageLessThan);
         return new PaginatedAdvertisementDTO(page.getContent().stream().map(mapper::toDTO).collect(Collectors.toList()),
                 page.getTotalElements(), page.getTotalPages(), page.getNumber());
     }

@@ -12,4 +12,5 @@ public class CommentDTO {
     private String authorId;
     private String content;
     private String parentId;
+    private String advertisementId;
 }

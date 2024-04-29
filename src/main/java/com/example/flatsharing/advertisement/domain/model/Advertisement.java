@@ -1,17 +1,15 @@
 package com.example.flatsharing.advertisement.domain.model;
 
-import com.example.flatsharing.user.domain.model.City;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.Binary;
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Document("advertisements")
@@ -20,15 +18,22 @@ import java.util.UUID;
 public class Advertisement {
     @Id
     private String id;
+    @NotEmpty
     private String title;
+    @NotEmpty
     private String content;
-    private List<Binary> photos;
+    private List<byte[]> photos;
+    @NotEmpty
     private City city;
-    private String street;
+    private String address;
+    @NotNull
+    private SubjectType type;
+    @NotNull
     private BigDecimal price;
+    @NotNull
     private Integer numberOfRooms;
-    private String conditions;
+    private List<String> conditions;
     private Boolean isPromoted;
-//    private DateTime createdAt;
-//    private DateTime updatedAt;
+    private List<String> commentIds;
+    private String authorId;
 }

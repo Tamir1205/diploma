@@ -6,6 +6,8 @@ import com.example.flatsharing.comment.domain.dto.UpdateCommentDTO;
 import com.example.flatsharing.comment.domain.model.Comment;
 import org.mapstruct.*;
 
+import java.util.List;
+
 @Mapper(
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL,
@@ -13,14 +15,12 @@ import org.mapstruct.*;
 )
 public interface CommentMapper {
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID().toString())")
-//    @Mapping(target = "createdAt", expression = "java(org.joda.time.DateTime.now())")
-//    @Mapping(target = "updatedAt", expression = "java(org.joda.time.DateTime.now())")
     Comment toComment(CreateCommentDTO dto);
 
     CommentDTO toDTO(Comment model);
 
+    List<CommentDTO> toDTO(List<Comment> models);
+
     @Mapping(target = "id", ignore = true)
-//    @Mapping(target = "createdAt", ignore = true)
-//    @Mapping(target = "updatedAt", expression = "java(org.joda.time.DateTime.now())")
     void mapValues(UpdateCommentDTO updateCommentDTO, @MappingTarget Comment comment);
 }

@@ -4,17 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateUserDTO {
     private String email;
-    private String password;
     private String sex;
     private String city;
-    //    private List<Interest> interests;
-    private String firstname;
-    //    private String lastname;
-//    private String role;
+    private String firstName;
+    private String surname;
     private String phoneNumber;
+    private Integer age;
+    private List<String> interests;
+    private String description;
+    private byte[] profilePicture;
 }

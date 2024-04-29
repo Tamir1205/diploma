@@ -17,8 +17,7 @@ public class Comment {
     @Id
     private String id;
     private String authorId;
+    private String advertisementId;
     private String content;
     private String parentId;
-//    private DateTime createdAt;
-//    private DateTime updatedAt;
 }

@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCommentDTO {
-    private String authorId;
-    private String content;
-    private String parentId;
-    private String advertisementId;
+public class PaginatedCommentDTO {
+    private List<CommentDTO> content;
+    private Long totalItems;
+    private int totalPages;
+    private int pageNumber;
 }
