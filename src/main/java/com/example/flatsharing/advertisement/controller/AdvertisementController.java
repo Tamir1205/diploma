@@ -38,9 +38,14 @@ public class AdvertisementController {
         return advertisementService.like(id, userId);
     }
 
-    @GetMapping("/favourite")
+    @GetMapping("/user/favourite")
     public List<AdvertisementDTO> getFavourite(@RequestHeader String userId) {
         return mapper.toDTO(advertisementService.getFavourite(userId));
+    }
+
+    @GetMapping("/user")
+    public List<AdvertisementDTO> getByUserId(@RequestHeader String userId) {
+        return mapper.toDTO(advertisementService.getByUserId(userId));
     }
 
     @PutMapping("/{id}")

@@ -72,6 +72,16 @@ public class AdvertisementService {
         }
     }
 
+    public List<Advertisement> getByUserId(String userId) {
+        User user = userService.getById(userId);
+        if (user.getAdvertisementIds() != null && !user.getAdvertisementIds().isEmpty()) {
+            List<String> advertisementIds = user.getAdvertisementIds();
+            return advertisementRepository.findAllById(advertisementIds);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
     public Page<Advertisement> paginate(Pageable pageable,
                                         List<Integer> numberOfRooms,
                                         BigDecimal priceGreaterThan,
