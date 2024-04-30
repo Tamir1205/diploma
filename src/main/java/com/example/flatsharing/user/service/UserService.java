@@ -1,9 +1,6 @@
 package com.example.flatsharing.user.service;
 
-import com.example.flatsharing.user.domain.dto.AuthenticateRequestDTO;
-import com.example.flatsharing.user.domain.dto.ChangePasswordDTO;
-import com.example.flatsharing.user.domain.dto.CreateUserDTO;
-import com.example.flatsharing.user.domain.dto.UpdateUserDTO;
+import com.example.flatsharing.user.domain.dto.*;
 import com.example.flatsharing.user.domain.mapper.UserMapper;
 import com.example.flatsharing.user.domain.model.User;
 import com.example.flatsharing.user.repository.UserRepository;
@@ -22,14 +19,15 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
 
-    public String create(CreateUserDTO dto) {
+    public RegistrationResponseDTO create(CreateUserDTO dto) {
         User user = userMapper.toUser(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         if (userRepository.existsUserByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email address already in use");
         } else {
             save(user);
-            return jwtService.generateToken(user);
+            String token = jwtService.generateToken(user);
+            return new RegistrationResponseDTO(userMapper.toDTO(user), token);
         }
     }
 
@@ -43,10 +41,11 @@ public class UserService {
                 new IllegalArgumentException("User with email =" + email + "not found"));
     }
 
-    public String authenticate(AuthenticateRequestDTO dto) {
+    public AuthenticationResponseDTO authenticate(AuthenticateRequestDTO dto) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
         User user = getByEmail(dto.getEmail());
-        return jwtService.generateToken(user);
+        String token = jwtService.generateToken(user);
+        return new AuthenticationResponseDTO(userMapper.toDTO(user), token);
     }
 
     public User update(UpdateUserDTO dto, String id) {
