@@ -32,12 +32,15 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration();
+                    configuration.setExposedHeaders(Arrays.asList("Authorization"));
                     configuration.setAllowedOrigins(Arrays.asList("*"));
                     configuration.setAllowedMethods(Arrays.asList("*"));
                     configuration.setAllowedHeaders(Arrays.asList("*"));
+                    configuration.applyPermitDefaultValues();
                     return configuration;
                 }))
                 .authorizeHttpRequests(req -> req
+                        .requestMatchers("/ws/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/advertisements")
                         .permitAll()
                         .requestMatchers(HttpMethod.GET, "/advertisements/{id}")

@@ -66,8 +66,10 @@ public class AdvertisementService {
     public Boolean dislike(String id, String userId) {
         Advertisement advertisement = findById(id);
         User user = userService.getById(userId);
-        if (user.getLikedAdvertisementIds() != null && !user.getLikedAdvertisementIds().isEmpty()) {
+        if (user.getLikedAdvertisementIds() != null && !user.getLikedAdvertisementIds().isEmpty() && user.getLikedAdvertisementIds().contains(advertisement.getId())) {
             user.getLikedAdvertisementIds().remove(advertisement.getId());
+        } else {
+            throw new IllegalArgumentException("Advertisement with id +" + id + " not liked");
         }
         userService.save(user);
         return true;
