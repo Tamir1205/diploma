@@ -19,5 +19,5 @@ public class UpdateUserDTO {
     private Integer age;
     private List<String> interests;
     private String description;
-    private byte[] profilePicture;
+    private String profilePicture;
 }

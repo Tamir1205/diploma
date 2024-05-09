@@ -22,7 +22,7 @@ public class Advertisement {
     private String title;
     @NotEmpty
     private String content;
-    private List<byte[]> photos;
+    private List<String> photos;
     @NotEmpty
     private City city;
     private String address;

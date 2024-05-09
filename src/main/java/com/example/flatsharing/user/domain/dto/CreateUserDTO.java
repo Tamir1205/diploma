@@ -26,6 +26,6 @@ public class CreateUserDTO {
     private Integer age;
     @NotEmpty
     private List<String> interests;
-    private byte[] profilePicture;
+    private String profilePicture;
     private String description;
 }

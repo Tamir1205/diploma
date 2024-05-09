@@ -16,7 +16,7 @@ public class CreateAdvertisementDTO {
     @NotEmpty
     private String title;
     private String content;
-    private List<byte[]> photos;
+    private List<String> photos;
     @NotEmpty
     private String city;
     @NotEmpty

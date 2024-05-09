@@ -38,7 +38,7 @@ public class User implements UserDetails {
     private Role role;
     private List<Interest> interests;
     private String description;
-    private byte[] profilePicture;
+    private String profilePicture;
     private List<String> advertisementIds;
     private List<String> likedAdvertisementIds;
 

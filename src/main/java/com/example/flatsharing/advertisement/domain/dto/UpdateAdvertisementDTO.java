@@ -13,7 +13,7 @@ import java.util.List;
 public class UpdateAdvertisementDTO {
     private String title;
     private String content;
-    private List<byte[]> photos;
+    private List<String> photos;
     private String city;
     private String address;
     private String type;

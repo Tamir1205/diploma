@@ -19,7 +19,7 @@ public class UserDTO {
     private Integer age;
     private List<String> interests;
     private String description;
-    private byte[] profilePicture;
+    private String profilePicture;
     private List<String> advertisementIds;
     private List<String> likedAdvertisementIds;
 }
