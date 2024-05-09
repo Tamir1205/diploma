@@ -61,7 +61,6 @@ public class SecurityConfig {
                 ).userDetailsService(userDetailsService)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new WebSocketCorsFilter(), ChannelProcessingFilter.class)
                 .build();
     }
 
