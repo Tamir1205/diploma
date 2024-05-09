@@ -62,6 +62,17 @@ public class AdvertisementService {
         return true;
     }
 
+    @Transactional
+    public Boolean dislike(String id, String userId) {
+        Advertisement advertisement = findById(id);
+        User user = userService.getById(userId);
+        if (user.getLikedAdvertisementIds() != null && !user.getLikedAdvertisementIds().isEmpty()) {
+            user.getLikedAdvertisementIds().remove(advertisement.getId());
+        }
+        userService.save(user);
+        return true;
+    }
+
     public List<Advertisement> getFavourite(String userId) {
         User user = userService.getById(userId);
         if (user.getLikedAdvertisementIds() != null && !user.getLikedAdvertisementIds().isEmpty()) {

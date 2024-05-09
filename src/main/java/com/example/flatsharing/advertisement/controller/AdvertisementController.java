@@ -38,6 +38,11 @@ public class AdvertisementController {
         return advertisementService.like(id, userId);
     }
 
+    @PostMapping("/{id}/dislike")
+    public Boolean dislike(@PathVariable String id, @RequestHeader String userId) {
+        return advertisementService.dislike(id, userId);
+    }
+
     @GetMapping("/user/favourite")
     public List<AdvertisementDTO> getFavourite(@RequestHeader String userId) {
         return mapper.toDTO(advertisementService.getFavourite(userId));
