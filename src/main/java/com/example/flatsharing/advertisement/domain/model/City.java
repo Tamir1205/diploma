@@ -4,5 +4,19 @@ public enum City {
     SEMEY,
     ALMATY,
     ASTANA,
-    AQTOBE
+    AQTOBE,
+    ATYRAY,
+    BALQASH,
+    KARAGANDA,
+    KOSTANAY,
+    KYZYLORDA,
+    ORAL,
+    PAVLODAR,
+    SHYMKENT,
+    TALDYKORGAN,
+    TARAZ,
+    TEMIRTAU,
+    TURKISTAN,
+    PETROPAVL,
+    ZHEZKAZGAN
 }
