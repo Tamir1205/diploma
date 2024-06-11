@@ -40,7 +40,11 @@ public class SecurityConfig {
                     return configuration;
                 }))
                 .authorizeHttpRequests(req -> req
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/find/**").permitAll()
+
                         .requestMatchers("/ws/**").permitAll()
+                        .requestMatchers("/chat/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/advertisements")
                         .permitAll()
                         .requestMatchers(HttpMethod.GET, "/advertisements/{id}")

@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Validated
 public class UserController {
@@ -34,6 +36,11 @@ public class UserController {
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
         return ResponseEntity.ok(userMapper.toDTO(userService.getById(id)));
+    }
+
+    @PostMapping("/find")
+    public ResponseEntity<List<UserDTO>> searchUser(@RequestParam String searchParameter) {
+        return ResponseEntity.ok(userMapper.toDTO(userService.searchUser(searchParameter)));
     }
 
     @GetMapping("/users/email/{email}")

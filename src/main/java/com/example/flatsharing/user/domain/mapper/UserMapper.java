@@ -9,6 +9,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
 public interface UserMapper {
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID().toString())")
@@ -19,4 +21,6 @@ public interface UserMapper {
     void mapValues(UpdateUserDTO updateUserDTO, @MappingTarget User user);
 
     UserDTO toDTO(User user);
+
+    List<UserDTO> toDTO(List<User> user);
 }
